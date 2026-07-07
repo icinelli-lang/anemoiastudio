@@ -1,0 +1,1011 @@
+/* ============================================================
+   ANEMOIA STUDIO — STYLE BASE
+   Step 1: reset, variabili, tipografia, utility riutilizzabili
+   ============================================================ */
+
+/* ---------- Reset minimo ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Font ByteBounce (licenza commerciale concessa dall'autore
+   per questo progetto, uso personale/accademico) ---------- */
+@font-face {
+  font-family: 'ByteBounce';
+  src: url('assets/fonts/ByteBounce.woff') format('woff'),
+       url('assets/fonts/ByteBounce.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Scrollbar personalizzata: traccia bianca, cursore
+   fucsia a blocco squadrato in stile pixel ---------- */
+html {
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-pink) var(--color-white);
+}
+
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-pink);
+  border: 2px solid var(--color-black);
+  /* niente border-radius: resta un blocco squadrato, coerente col resto del sito */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-pink-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+button, input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Palette */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-pink: #FF3599;      /* pink primario, brand/logo/CTA */
+  --color-pink-soft: #F191BC; /* pink secondario, highlight/testo */
+
+  /* Superfici derivate (per gradienti hero, hover, ecc. — nessun nuovo colore introdotto) */
+  --color-pink-dark: #99105c; /* pink primario scurito, per gradienti verso il nero */
+
+  /* Tipografia */
+  --font-display: 'ByteBounce', monospace; /* titoli, wordmark, etichette brevi, bottoni */
+  --font-body: 'ByteBounce', monospace;    /* testi lunghi: minuscole vere e leggibili nel font originale */
+
+  /* Type scale (clamp = fluido, responsive senza media query multiple) */
+  --fs-hero:    clamp(2.5rem, 9vw, 7rem);
+  --fs-h1:      clamp(1.75rem, 5vw, 3rem);
+  --fs-h2:      clamp(1.25rem, 3vw, 1.75rem);
+  --fs-body-lg: clamp(1.15rem, 2.4vw, 1.65rem);
+  --fs-body:    clamp(1rem, 1.6vw, 1.25rem);
+  --fs-small:   clamp(0.9rem, 1.3vw, 1.05rem);
+
+  /* Spaziatura */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+
+  /* Layout */
+  --content-max-width: 1400px;
+  --navbar-height: 64px;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 0.2s;
+  --duration-base: 0.4s;
+  --duration-slow: 1.2s;
+}
+
+/* ---------- Base ---------- */
+body {
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  overflow-x: hidden;
+  cursor: url("assets/img/cursor-pink.png") 0 0, auto;
+}
+
+/* Forziamo il cursore personalizzato anche sugli elementi per cui il
+   browser applicherebbe di default un cursore proprio (campi di testo,
+   pulsanti, link), che altrimenti vincerebbe sul cursore ereditato dal
+   body */
+input, textarea, button, a, [role="button"] {
+  cursor: url("assets/img/cursor-pink.png") 0 0, auto !important;
+}
+
+body.lock-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.section {
+  position: relative;
+  width: 100%;
+}
+
+/* ---------- Focus visibile (accessibilità) ---------- */
+:focus-visible {
+  outline: 3px solid var(--color-pink);
+  outline-offset: 3px;
+}
+
+/* ---------- Utility riutilizzabili tra sezioni ---------- */
+
+/* /LABEL — titolo di sezione con slash, pattern ricorrente */
+.section-title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.section-title::before {
+  content: "/";
+  color: var(--color-white);
+}
+
+/* Parola/frase evidenziata con sfondo pink, usata in About Me e nel tag progetto */
+.highlight-tag {
+  background: var(--color-pink);
+  color: var(--color-white);
+  padding: 0.05em 0.25em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Progress bar — riutilizzata da Loading Screen e Project carousel */
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #1a1a1a;
+  border: 2px solid var(--color-pink);
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: var(--color-pink-soft);
+  width: 0%;
+  transition: width var(--duration-base) var(--ease-standard);
+}
+
+/* Finestra stile OS — usata dal Contact Form */
+.pixel-window {
+  background: #dcdcdc;
+  border: 3px solid var(--color-black);
+  color: var(--color-black);
+}
+
+.pixel-window__titlebar {
+  background: var(--color-pink);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm);
+  flex-shrink: 0;
+}
+
+/* Visually-hidden — per label accessibili quando il design mostra solo placeholder */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Container standard */
+.container {
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+}
+
+/* Disabilita temporaneamente le transizioni per letture di layout sicure (FLIP) */
+.no-transition {
+  transition: none !important;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding-inline: var(--space-sm);
+  }
+}
+
+/* ============================================================
+   LOADING SCREEN
+   ============================================================ */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #2e2e2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0);
+  transition: transform 0.8s var(--ease-standard);
+  will-change: transform;
+}
+
+/* la tenda si tira su e scompare verso l'alto */
+#loading-screen.is-hidden {
+  transform: translateY(-100%);
+}
+
+.loading-content {
+  width: min(90vw, 420px);
+}
+
+.loading-percent {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+}
+
+/* ============================================================
+   NAVBAR
+   Il transform di apertura (scendere dall'alto) viene impostato
+   via JS ad ogni frame di scroll (js/intro-scroll.js), non tramite
+   transizione CSS: in uno scrubbing 1:1 con lo scroll una transition
+   introdurrebbe un ritardo percepibile rispetto al gesto dell'utente.
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  height: var(--navbar-height);
+  background: var(--color-black);
+  transform: translateY(-100%);
+}
+
+.navbar__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__brand-logo {
+  height: 28px;
+  width: auto;
+  opacity: 0; /* diventa visibile solo a sequenza intro completata */
+}
+
+.navbar__links {
+  display: flex;
+  gap: var(--space-md);
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.navbar__link {
+  padding: 0.35em 0.75em;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.navbar__link:hover,
+.navbar__link.is-active {
+  background: var(--color-pink);
+  color: var(--color-white);
+}
+
+@media (max-width: 480px) {
+  .navbar__links {
+    gap: var(--space-xs);
+  }
+  .navbar__link {
+    padding: 0.3em 0.4em;
+    font-size: 0.8rem;
+  }
+  .navbar__brand-logo {
+    height: 20px;
+  }
+}
+
+/* ============================================================
+   INTRO SCROLLYTELLING
+   Sezione pinnata: #intro-pin è lo spacer che determina quanto
+   scroll "consuma" la sequenza; #intro-stage resta agganciata
+   (position: sticky) mentre lo scroll interno pilota ogni fase.
+   ============================================================ */
+#intro-pin {
+  position: relative;
+  height: 450vh; /* ~4.5 schermate di scroll dedicate all'intro cinematografica */
+}
+
+#intro-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-black);
+}
+
+/* ---------- Sfondo: banda rosa + gradiente + overlay nero ---------- */
+#intro-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+#intro-bg__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--color-pink) 0%, var(--color-pink-dark) 45%, var(--color-black) 100%);
+  opacity: 0; /* lo sfondo resta sempre nero di base; il gradiente si affaccia progressivamente */
+}
+
+#intro-bg__black-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-black);
+  opacity: 0; /* sale durante la rotazione, per arrivare a nero pieno nella sezione PVM */
+}
+
+/* ---------- Logo animato (fase 1: centro schermo → navbar) ---------- */
+#intro-logo {
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  width: min(70vw, 720px);
+  height: auto;
+  transform: translate(-50%, -50%);
+  will-change: transform, width, top, left;
+}
+
+/* ---------- Testa 3D (fasi 2-4: comparsa, rotazione, riduzione) ---------- */
+#head-canvas {
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: min(90vw, 900px);
+  height: auto;
+  opacity: 0;
+}
+
+/* ---------- Layer SVG delle linee fucsia di collegamento ---------- */
+#pvm-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 14; /* sotto ai box di testo (15), sopra alla testa (10) */
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.pvm-line {
+  stroke: var(--color-pink);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+/* ---------- Callout Purpose / Vision / Mission / firma ---------- */
+.pvm-callout {
+  position: absolute;
+  z-index: 15;
+  max-width: min(90vw, 360px);
+  opacity: 0;
+  transform: translateX(0);
+  padding: var(--space-sm);
+}
+
+.pvm-callout__label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  margin-bottom: 0.5em;
+}
+
+.pvm-callout__label::before {
+  content: "/";
+}
+
+.pvm-callout__text {
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+
+/* Purpose e Mission: box con bordo fucsia e angolo tagliato, come nel Figma */
+.pvm-callout--purpose,
+.pvm-callout--mission {
+  border: 1.5px solid var(--color-pink);
+}
+
+.pvm-callout--purpose {
+  top: 30%;
+  left: 5%;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+}
+
+.pvm-callout--mission {
+  top: 45%;
+  right: 5%;
+  clip-path: polygon(24px 0, 100% 0, 100% 100%, 0 100%, 0 24px);
+}
+
+/* Vision e firma: solo sottolineatura, come nel Figma */
+.pvm-callout--vision,
+.pvm-callout--name {
+  border: none;
+  border-top: 1.5px solid var(--color-pink);
+  padding-top: var(--space-xs);
+}
+
+.pvm-callout--vision {
+  bottom: 15%;
+  left: 8%;
+}
+
+.pvm-callout--name {
+  top: 12%;
+  right: 6%;
+  text-align: right;
+}
+
+@media (max-width: 800px) {
+  .pvm-callout {
+    max-width: 80vw;
+    left: 10vw;
+    right: auto;
+    font-size: 0.85em;
+    clip-path: none;
+  }
+  .pvm-callout--name    { top: 6%; }
+  .pvm-callout--purpose { top: 24%; }
+  .pvm-callout--vision  { top: 46%; bottom: auto; }
+  .pvm-callout--mission { top: 68%; }
+  #pvm-lines { display: none; }
+}
+
+/* ============================================================
+   ABOUT ME
+   Sezione pinnata breve: il testo si rivela parola per parola in
+   base allo scroll (stesso principio di sui.io), i rettangoli
+   evidenziatori si dipingono in sincro. Tutto guidato via JS in
+   js/about-scroll.js, senza transition CSS sulle proprietà scrubbed
+   (stesso motivo delle altre sequenze: niente ritardo vs lo scroll).
+   ============================================================ */
+#about-pin {
+  position: relative;
+  height: 220vh;
+  background: var(--color-black);
+}
+
+#about-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+
+#about-title .letter {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(6px);
+}
+
+.about-text {
+  font-size: var(--fs-body-lg);
+  line-height: 1.6;
+  max-width: 900px;
+}
+
+.about-text .word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(6px);
+}
+
+.about-text mark.hl {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.15em;
+  color: var(--color-white);
+  background: none;
+  opacity: 0;
+  filter: blur(6px);
+}
+
+.hl-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--color-pink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  z-index: -1;
+}
+
+.hl-text {
+  position: relative;
+}
+
+/* ============================================================
+   SOFTWARE SKILLS
+   Al passaggio del mouse su una card, l'icona colorata rivela la
+   percentuale di competenza al posto delle iniziali.
+   ============================================================ */
+.skills {
+  padding-block: var(--space-xl);
+}
+
+.skills .section-title {
+  margin-bottom: var(--space-lg);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-md);
+  max-width: 1000px;
+  margin-inline: auto;
+  justify-items: center;
+}
+
+.skill-card {
+  width: 100%;
+  max-width: 160px;
+  border: 1.5px solid var(--color-pink);
+  padding: var(--space-sm);
+  text-align: center;
+}
+
+.skill-card__icon {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  overflow: hidden;
+}
+
+.skill-card__initials,
+.skill-card__percent {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--color-white);
+  transition: opacity 0.25s var(--ease-standard), transform 0.25s var(--ease-standard);
+}
+
+.skill-card__percent {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.skill-card:hover .skill-card__initials,
+.skill-card:focus .skill-card__initials,
+.skill-card:focus-within .skill-card__initials {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+.skill-card:hover .skill-card__percent,
+.skill-card:focus .skill-card__percent,
+.skill-card:focus-within .skill-card__percent {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skill-card__name {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  margin-bottom: 0.4em;
+}
+
+.skill-card__hearts {
+  color: var(--color-pink);
+  letter-spacing: 0.2em;
+  font-size: var(--fs-small);
+}
+
+.skill-card__heart--empty {
+  color: #555;
+}
+
+/* ============================================================
+   VIDEO PORTFOLIO
+   ============================================================ */
+.video-portfolio {
+  padding-block: var(--space-xl);
+}
+
+.video-portfolio__frame {
+  max-width: 1100px;
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  background: #d9d9d9; /* stesso grigio del placeholder, visibile finché il video non è pronto */
+}
+
+.video-portfolio__frame video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ============================================================
+   PROJECT — scroll orizzontale
+   #project-pin è lo spacer che determina quanto scroll verticale
+   "consuma" il passaggio tra i 5 progetti; #project-stage resta
+   agganciata mentre #project-track trasla orizzontalmente in
+   base al progress (nessuna transition CSS: scrubbing 1:1 con lo
+   scroll, stesso principio delle altre sequenze del sito).
+   ============================================================ */
+#project-pin {
+  position: relative;
+  height: 400vh;
+}
+
+#project-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: var(--space-xl);
+}
+
+#project-stage .section-title {
+  margin-inline: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+#project-track {
+  display: flex;
+  will-change: transform;
+}
+
+.project-slide {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding-inline: var(--space-md);
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+.project-slide__media {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.project-slide__tag {
+  position: absolute;
+  top: 22%;
+  left: 0;
+  transform: translateX(-55%);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.project-slide__cover {
+  width: min(45vw, 500px);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.project-slide__text {
+  font-family: var(--font-body);
+  font-size: clamp(1.1rem, 1.9vw, 1.4rem);
+  line-height: 1.15;
+  opacity: 0.9;
+  max-width: 480px;
+}
+
+.project-progress {
+  margin-inline: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.project-progress__row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  margin-top: var(--space-xs);
+}
+
+@media (max-width: 800px) {
+  .project-slide { flex-direction: column; gap: var(--space-md); text-align: center; }
+  .project-slide__tag { position: relative; transform: none; }
+  .project-slide__cover { width: 80vw; }
+}
+
+/* ============================================================
+   CONTACT FORM
+   ============================================================ */
+.contact {
+  padding-block: var(--space-md);
+  display: flex;
+  justify-content: center;
+}
+
+.contact-window {
+  width: 100%;
+  max-width: 800px;
+  font-family: var(--font-body);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 480px) {
+  .contact-window {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* essenziale: senza questo un elemento flex ignora l'aspect-ratio se il contenuto richiede più spazio */
+  }
+}
+
+/* L'altezza esatta viene impostata via JS (js/contact-form.js) in modo
+   da ottenere un quadrato matematicamente preciso, indipendentemente
+   dalla larghezza reale a runtime — niente più approssimazioni CSS
+   che potevano risultare in un contenuto troppo alto per il riquadro. */
+
+.pixel-window__controls {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.pixel-window__btn {
+  width: 1.8em;
+  height: 1.4em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcdcdc;
+  color: var(--color-black);
+  border: 1.5px solid var(--color-black);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.contact-window__body {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .contact-window__body {
+    padding: var(--space-md);
+    gap: var(--space-sm);
+  }
+  .contact-field textarea {
+    height: 140px;
+  }
+}
+
+@media (min-width: 480px) {
+  .contact-window__body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
+
+.contact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  flex-shrink: 0;
+}
+
+.contact-field__label {
+  font-weight: 700;
+  font-size: var(--fs-body);
+}
+
+.contact-field input,
+.contact-field textarea {
+  background: var(--color-white);
+  border: none;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+  padding: 0.85em 1em;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: #333;
+  resize: vertical;
+}
+
+.contact-field textarea {
+  height: 200px;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: #8a8a8a;
+}
+
+.contact-window__actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.contact-btn {
+  flex: 1;
+  padding: 0.95em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-body);
+  border: 1.5px solid var(--color-black);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: url("assets/img/cursor-pink.png") 0 0, pointer;
+}
+
+.contact-btn--send {
+  background: var(--color-pink);
+  color: var(--color-white);
+}
+
+.contact-btn--clear {
+  background: #999;
+  color: var(--color-white);
+}
+
+.contact-btn--send:hover { background: var(--color-pink-dark); }
+.contact-btn--clear:hover { background: #7a7a7a; }
+
+.contact-window__note {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--color-pink-soft);
+  min-height: 1.4em;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+#footer {
+  padding-block: var(--space-xl) var(--space-md);
+}
+
+.footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg) var(--space-xl);
+  max-width: 900px;
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-body);
+}
+
+.footer__col {
+  flex: 1 1 180px;
+  max-width: 240px;
+}
+
+.footer__label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin-bottom: 0.75em;
+}
+
+.footer__label::before {
+  content: "/";
+}
+
+.footer__col p {
+  margin-bottom: 0.4em;
+  font-size: var(--fs-body);
+}
+
+.footer__col a:hover {
+  color: var(--color-pink);
+}
+
+.footer__bar {
+  margin-top: var(--space-lg);
+  border-top: 1px solid #333;
+  height: var(--space-lg);
+  max-width: var(--content-max-width);
+  margin-inline: auto;
+}
+
+/* ============================================================
+   FEEDBACK AL CLICK
+   Piccola animazione (leggero "schiacciamento") su tutti gli
+   elementi cliccabili del sito, per dare un feedback tattile
+   immediato al click/tap.
+   ============================================================ */
+.navbar__link,
+.skill-card,
+.contact-btn,
+.pixel-window__btn,
+.footer__col a {
+  transition: transform 0.15s var(--ease-standard);
+}
+
+.navbar__link:active,
+.skill-card:active,
+.contact-btn:active,
+.pixel-window__btn:active,
+.footer__col a:active {
+  transform: scale(0.94);
+}
+
+/* ============================================================
+   SCIA DI PIXEL DEL CURSORE
+   ============================================================ */
+.cursor-pixel {
+  position: fixed;
+  z-index: 9999;
+  background: var(--color-pink);
+  pointer-events: none;
+  animation: cursor-pixel-fade 0.6s ease-out forwards;
+}
+
+@keyframes cursor-pixel-fade {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+}
