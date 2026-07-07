@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anemoia Studio — Design & Visual Systems</title>
+<meta name="description" content="Anemoia Studio — Irene Cinelli. Branding, visual identity, motion e UI design.">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ LOADING SCREEN ============ -->
+<div id="loading-screen" aria-hidden="true">
+  <div class="loading-content">
+    <span class="loading-percent" id="loading-percent">0%</span>
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="loading-bar">
+      <div class="progress-bar__fill" id="loading-fill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="navbar">
+  <div class="navbar__inner container">
+    <img src="assets/img/logo.svg" alt="Anemoia Studio" class="navbar__brand-logo" id="navbar-logo">
+    <nav class="navbar__links" aria-label="Navigazione principale">
+      <a href="#" class="navbar__link is-active">Home</a>
+      <a href="#about" class="navbar__link">About</a>
+      <a href="#project" class="navbar__link">Project</a>
+      <a href="#contact" class="navbar__link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ INTRO SCROLLYTELLING ============
+       Un'unica sequenza pinnata (~4.5 schermate di scroll) che copre:
+       1) logo che sale nella navbar + banda rosa/navbar che scendono
+       2) testa che compare gigante (focal point)
+       3) rotazione a 360° della testa, agganciata allo scroll
+       4) la testa si riduce leggermente + compaiono Purpose/Vision/Mission
+       Tutto guidato da js/intro-scroll.js in base alla posizione di scroll,
+       bidirezionale (scrollando indietro tutto torna indietro in sincro). -->
+  <div id="intro-pin">
+    <div id="intro-stage">
+
+      <div id="intro-bg">
+        <div id="intro-bg__gradient"></div>
+        <div id="intro-bg__black-overlay"></div>
+      </div>
+
+      <img src="assets/img/logo.svg" alt="Anemoia" id="intro-logo">
+
+      <canvas id="head-canvas" aria-label="Personaggio mascotte 3D di Anemoia Studio che ruota su se stesso" role="img"></canvas>
+
+      <svg id="pvm-lines" aria-hidden="true">
+        <line id="line-name" class="pvm-line"></line>
+        <line id="line-purpose" class="pvm-line"></line>
+        <line id="line-vision" class="pvm-line"></line>
+        <line id="line-mission" class="pvm-line"></line>
+      </svg>
+
+
+      <div id="pvm-name" class="pvm-callout pvm-callout--name">
+        <span class="pvm-callout__label">I'm Irene Cinelli</span>
+      </div>
+
+      <div id="pvm-purpose" class="pvm-callout pvm-callout--purpose">
+        <span class="pvm-callout__label">PURPOSE</span>
+        <p class="pvm-callout__text">I create visual experiences that blend emotion, play and contemporary aesthetics.</p>
+      </div>
+
+      <div id="pvm-vision" class="pvm-callout pvm-callout--vision">
+        <span class="pvm-callout__label">VISION</span>
+        <p class="pvm-callout__text">Blending experimentation to create authentic design.</p>
+      </div>
+
+      <div id="pvm-mission" class="pvm-callout pvm-callout--mission">
+        <span class="pvm-callout__label">MISSION</span>
+        <p class="pvm-callout__text">I combine strategy, creativity and motion to craft meaningful visual system.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ ABOUT ME ============
+       Sezione pinnata breve: scrollando, il testo si "scrive da solo"
+       parola per parola (come su sui.io) e i rettangoli evidenziatori
+       si dipingono in sincro. Guidata da js/about-scroll.js. -->
+  <div id="about-pin">
+  <a id="about"></a>
+    <div id="about-stage" class="container">
+      <h2 class="section-title" id="about-title">ABOUT ME</h2>
+      <p class="about-text" id="about-text">
+        <span class="word">I'm</span>
+        <span class="word">a</span>
+        <mark class="hl"><span class="hl-bg"></span><span class="hl-text">Designer</span></mark>
+        <span class="word">passionate</span>
+        <span class="word">about</span>
+        <span class="word">creating</span>
+        <span class="word">bold</span>
+        <mark class="hl"><span class="hl-bg"></span><span class="hl-text">visual identities</span></mark>,
+        <span class="word">immersive</span>
+        <mark class="hl"><span class="hl-bg"></span><span class="hl-text">digital experiences</span></mark>
+        <span class="word">and</span>
+        <mark class="hl"><span class="hl-bg"></span><span class="hl-text">storytelling.</span></mark>
+        <span class="word">I</span>
+        <span class="word">combine</span>
+        <span class="word">branding,</span>
+        <span class="word">animation</span>
+        <span class="word">and</span>
+        <span class="word">UI</span>
+        <span class="word">thinking</span>
+        <span class="word">to</span>
+        <span class="word">transform</span>
+        <span class="word">ideas</span>
+        <span class="word">into</span>
+        <span class="word">memorable</span>
+        <mark class="hl"><span class="hl-bg"></span><span class="hl-text">visual systems.</span></mark>
+      </p>
+    </div>
+  </div>
+
+  <!-- ============ SOFTWARE SKILLS ============ -->
+  <section id="skills" class="section skills">
+    <div class="container">
+      <h2 class="section-title">SOFTWARE SKILLS</h2>
+      <div class="skills-grid">
+
+        <div class="skill-card" tabindex="0">
+          <div class="skill-card__icon" style="background:#FF4FA6">
+            <span class="skill-card__initials">ID</span>
+            <span class="skill-card__percent">95%</span>
+          </div>
+          <p class="skill-card__name">InDesign</p>
+          <div class="skill-card__hearts" aria-label="3 cuori su 3">♥ ♥ ♥</div>
+        </div>
+
+        <div class="skill-card" tabindex="0">
+          <div class="skill-card__icon" style="background:#3D4FE0">
+            <span class="skill-card__initials">PS</span>
+            <span class="skill-card__percent">90%</span>
+          </div>
+          <p class="skill-card__name">Photoshop</p>
+          <div class="skill-card__hearts" aria-label="3 cuori su 3">♥ ♥ ♥</div>
+        </div>
+
+        <div class="skill-card" tabindex="0">
+          <div class="skill-card__icon" style="background:#FFA83C">
+            <span class="skill-card__initials">AI</span>
+            <span class="skill-card__percent">95%</span>
+          </div>
+          <p class="skill-card__name">Illustrator</p>
+          <div class="skill-card__hearts" aria-label="3 cuori su 3">♥ ♥ ♥</div>
+        </div>
+
+        <div class="skill-card" tabindex="0">
+          <div class="skill-card__icon" style="background:#7B2FE0">
+            <span class="skill-card__initials">AE</span>
+            <span class="skill-card__percent">75%</span>
+          </div>
+          <p class="skill-card__name">After Effect</p>
+          <div class="skill-card__hearts" aria-label="2 cuori su 3">♥ ♥ <span class="skill-card__heart--empty">♥</span></div>
+        </div>
+
+        <div class="skill-card" tabindex="0">
+          <div class="skill-card__icon" style="background:#FF2D2D">
+            <span class="skill-card__initials">Fg</span>
+            <span class="skill-card__percent">90%</span>
+          </div>
+          <p class="skill-card__name">Figma Design</p>
+          <div class="skill-card__hearts" aria-label="3 cuori su 3">♥ ♥ ♥</div>
+        </div>
+
+        <div class="skill-card" tabindex="0">
+          <div class="skill-card__icon" style="background:#29D6F0">
+            <span class="skill-card__initials">DR</span>
+            <span class="skill-card__percent">80%</span>
+          </div>
+          <p class="skill-card__name">DaVinci Resolve</p>
+          <div class="skill-card__hearts" aria-label="2 cuori su 3">♥ ♥ <span class="skill-card__heart--empty">♥</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO PORTFOLIO ============ -->
+  <section id="video-portfolio" class="section video-portfolio">
+    <div class="container">
+      <div class="video-portfolio__frame">
+        <video
+          id="portfolio-video"
+          src="assets/video/portfolio.mp4"
+          poster="assets/img/video-poster.jpg"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+          aria-label="Video reel del portfolio di Anemoia Studio">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECT (scroll orizzontale) ============
+       Sezione pinnata: scorrendo, i 5 progetti si muovono verso
+       sinistra uno alla volta, in sincro con la barra sotto.
+       Copy e testo segnaposto lasciati invariati per ora, come da
+       indicazione: ci penseremo in un secondo momento.
+       Guidata da js/project-scroll.js. -->
+  <div id="project-pin">
+    <div id="project-stage">
+      <h2 class="section-title">PROJECT</h2>
+
+      <div id="project-track">
+
+        <article class="project-slide">
+          <div class="project-slide__media">
+            <span class="project-slide__tag highlight-tag">CAIRO x UTMB</span>
+            <img class="project-slide__cover" src="assets/img/project_cairo.jpg" alt="Cover progetto Il Cairo — Egypt Ultra-Trail by UTMB">
+          </div>
+          <p class="project-slide__text">Cairo – Egypt Ultra-Trail by UTMB is a brand identity project created for an ultra-trail race in the heart of the Egyptian desert. The visual identity blends the spirit of trail running with the iconic desert landscape, transforming dunes, mountains, and movement into a bold and recognizable graphic system. The result is a brand that conveys adventure, endurance, and exploration through a modern visual language.</p>
+        </article>
+
+        <article class="project-slide">
+          <div class="project-slide__media">
+            <span class="project-slide__tag highlight-tag">Dual - Brooks</span>
+            <img class="project-slide__cover" src="assets/img/project_dual.jpg" alt="Cover progetto Dual">
+          </div>
+          <p class="project-slide__text">Dual is a concept project developed for Brooks, including footwear design, an advertising campaign, and a dedicated landing page. Built around the idea of duality in performance, the project explores the balance between speed and comfort through a cohesive visual identity and product experience. The result is a bold, contemporary concept that connects innovation, storytelling, and digital communication into one unified brand experience.</p>
+        </article>
+
+        <article class="project-slide">
+          <div class="project-slide__media">
+            <span class="project-slide__tag highlight-tag">OFFFY</span>
+            <img class="project-slide__cover" src="assets/img/project_offfy.jpg" alt="Cover progetto Offfy">
+          </div>
+          <p class="project-slide__text">Offfy is a mobile app concept designed to help high school students reduce digital dopamine dependency and build healthier screen habits. Through challenges, rewards, and real-world experiences, the app encourages users to spend less time on their phones and engage more with local events and offline activities. The project combines UX design, gamification, and visual identity to promote a more balanced and mindful digital lifestyle.</p>
+        </article>
+
+        <article class="project-slide">
+          <div class="project-slide__media">
+            <span class="project-slide__tag highlight-tag">Play Pulse</span>
+            <img class="project-slide__cover" src="assets/img/project_playpulse.jpg" alt="Cover progetto Play Pulse Olympica">
+          </div>
+          <p class="project-slide__text">Play Pulse is a team-building service designed for companies, using VR technology to create immersive challenges that strengthen focus, collaboration, and problem-solving skills. Through interactive experiences and concentration-based activities, the project transforms traditional corporate training into an engaging and memorable experience. The result is a modern brand that combines innovation, technology, and human connection.</p>
+        </article>
+
+        <article class="project-slide">
+          <div class="project-slide__media">
+            <span class="project-slide__tag highlight-tag">Reloop</span>
+            <img class="project-slide__cover" src="assets/img/project_reloop.jpg" alt="Cover progetto Reloop">
+          </div>
+          <p class="project-slide__text">ReLoop is a mobile app concept designed to promote recycling and the circular economy by turning citizens into active participants in waste management. Using a smart scanning system, the app identifies and maps recyclable waste while rewarding users with points redeemable at partner stores. The project combines UX design, gamification, and sustainability to create an engaging ecosystem that encourages responsible habits and gives waste a second life.</p>
+        </article>
+
+      </div>
+
+      <div class="project-progress">
+        <div class="progress-bar">
+          <div class="progress-bar__fill" id="project-progress-fill"></div>
+        </div>
+        <div class="project-progress__row">
+          <span id="project-index">1/5_</span>
+          <span>:))))))</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ CONTACT FORM ============ -->
+  <section id="contact" class="section contact">
+    <div class="container">
+      <form class="pixel-window contact-window" id="contact-form">
+        <div class="pixel-window__titlebar">
+          <span>CONTACT FORM</span>
+          <div class="pixel-window__controls" aria-hidden="true">
+            <span class="pixel-window__btn">_</span>
+            <span class="pixel-window__btn">×</span>
+          </div>
+        </div>
+        <div class="contact-window__body">
+
+          <label class="contact-field">
+            <span class="contact-field__label">Name</span>
+            <input type="text" name="name" id="contact-name" placeholder="Your full name" required>
+          </label>
+
+          <label class="contact-field">
+            <span class="contact-field__label">E-mail</span>
+            <input type="email" name="email" id="contact-email" placeholder="Your e-mail" required>
+          </label>
+
+          <label class="contact-field">
+            <span class="contact-field__label">Message</span>
+            <textarea name="message" id="contact-message" rows="7" placeholder="Tell me about your project..." required></textarea>
+          </label>
+
+          <div class="contact-window__actions">
+            <button type="submit" class="contact-btn contact-btn--send">Send</button>
+            <button type="reset" class="contact-btn contact-btn--clear">Clear</button>
+          </div>
+
+          <p class="contact-window__note" id="contact-note" role="status" aria-live="polite"></p>
+
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="footer">
+  <div class="container footer__grid">
+
+    <div class="footer__col">
+      <span class="footer__label">where</span>
+      <p>Based in Rome</p>
+      <p>Available worldwide</p>
+    </div>
+
+    <div class="footer__col">
+      <span class="footer__label">contact</span>
+      <p><a href="mailto:design@anemoia.it">design@anemoia.it</a></p>
+      <p><a href="https://instagram.com/anemoiastudio" target="_blank" rel="noopener">@anemoiastudio</a></p>
+      <p><a href="#" target="_blank" rel="noopener">Linkedin</a></p>
+      <p><a href="#" target="_blank" rel="noopener">behance</a></p>
+    </div>
+
+    <div class="footer__col">
+      <span class="footer__label">currently avaible for</span>
+      <p>project</p>
+      <p>collab</p>
+      <p>branding</p>
+    </div>
+
+  </div>
+  <div class="footer__bar"></div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/intro-scroll.js"></script>
+<script src="js/about-scroll.js"></script>
+<script src="js/video-portfolio.js"></script>
+<script src="js/project-scroll.js"></script>
+<script src="js/contact-form.js"></script>
+<script src="js/cursor-trail.js"></script>
+</body>
+</html>
